@@ -11,20 +11,24 @@ class Listener(StreamListener):
         tweet = Tweet(tweet_dict)
         print(tweet.created_at_string, tweet.all_text)
         #print(tweet)
+
+        f.write(data)
+
         return True
     def on_error(self, status):
         print("Error code:", status)
         if status == 420:
             return False
 
-kafka = KafkaClient()
 producer = KafkaProducer()
+f = open("json_tweets.txt", "a")
 listener = Listener()
 oAuth = OAuthHandler(consumer_key, consumer_secret)
 oAuth.set_access_token(access_token, access_token_secret)
 tweet_stream = Stream(oAuth, listener)
-tweet_stream.filter(track=['Whatever'], is_async=False) # Tracks word
-# tweet_stream.filter(follow=['Whatever'], is_async=False) # follow
+tweet_stream.filter(track=["google"]) # Tracks word
+f.close()
+# tweet_stream.filter(follow=['@malmbrg']) # follow
 # tweet_stream.filter(locations=['Whatever'], is_async=False) # location
 
 
