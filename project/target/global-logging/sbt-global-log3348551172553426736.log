@@ -1,0 +1,9 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /home/mhuet/kth/dip/project/target/scala-2.11/classes ...[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mdone compiling[0m[0J
+[0m[[0m[31merror[0m] [0m[0mNonzero exit code: 1[0m[0J
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mrun[0m) Nonzero exit code: 1[0m[0J
+[0m[[0m[31merror[0m] [0m[0mTotal time: 15 s, completed Oct 20, 2020 4:38:42 PM[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m[0J

@@ -1,0 +1,103 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(early(addDefaultCommands), None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(addDefaultCommands, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(early(initialize), None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(initialize, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(early(addPluginSbtFile="""/tmp/idea801.sbt"""), None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(addPluginSbtFile="""/tmp/idea801.sbt""", None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(boot, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(writeSbtVersion, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(reload, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(sbtStashOnFailure, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(onFailure loadFailed, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(loadp, None, None)[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mwelcome to sbt 1.4.0 (Private Build Java 1.8.0_265)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: plugins took 93.23855ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: defsScala took 0.301631ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/mhuet/.sbt/1.0/plugins[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/.sbt/1.0/plugins, returning: ()[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin)))))[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 27.532143 ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m          Load.resolveProject(global-plugins) took 51.037403ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m        Load.loadTransitive: finalizeProject(Project(id global-plugins, base: /home/mhuet/.sbt/1.0/plugins, plugins: List(<none>))) took 115.813302ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/.sbt/1.0/plugins, returning: (global-plugins)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: loadedProjectsRaw took 293.817869ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: cleanEvalClasses took 0.272923ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit(file:/home/mhuet/.sbt/1.0/plugins/, ...) took 395.233725ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: load took 580.758506ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: resolveProjects took 7.525002ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: finalTransforms took 65.588447ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: config.delegates took 7.106244ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: Def.make(settings)... took 381.649311ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: structureIndex took 132.70569ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.apply: mkStreams took 2.965664ms[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mloading global plugins from /home/mhuet/.sbt/1.0/plugins[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.defaultLoad until apply took 3248.466146ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: plugins took 27.069639ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: defsScala took 0.003964ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/mhuet/kth/dip/project/project[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m            Load.loadUnit: mkEval took 7.773601ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/kth/dip/project/project, returning: ()[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin)))))[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 1.541621 ms[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mloading settings for project project-build from idea801.sbt ...[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m              Load.resolveProject(project-build) took 2.944371ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m            Load.loadTransitive: finalizeProject(Project(id project-build, base: /home/mhuet/kth/dip/project/project, plugins: List(<none>))) took 5.021117ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/kth/dip/project/project, returning: (project-build)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: loadedProjectsRaw took 165.000352ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: cleanEvalClasses took 4.373125ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m        Load.loadUnit(file:/home/mhuet/kth/dip/project/project/, ...) took 197.090937ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: load took 198.302666ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: resolveProjects took 0.125017ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: finalTransforms took 7.989688ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: config.delegates took 0.45765ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: Def.make(settings)... took 94.092814ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: structureIndex took 35.696381ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: mkStreams took 0.002984ms[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mloading project definition from /home/mhuet/kth/dip/project/project[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: plugins took 687.774477ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: defsScala took 0.005103ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory /home/mhuet/kth/dip/project[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: mkEval took 0.246172ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/kth/dip/project, returning: ()[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.SbtPlugin),Set(Atom(sbt.ScriptedPlugin))), Clause(Atom(sbt.plugins.SemanticdbPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.MiniDependencyTreePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.StructurePlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.IdeaShellPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.SemanticdbPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(org.jetbrains.sbt.StructurePlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(org.jetbrains.sbt.IdeaShellPlugin))), Clause(And(Set(Atom(sbt.plugins.CorePlugin), Atom(sbt.plugins.JvmPlugin))),Set(Atom(org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin)))))[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.SemanticdbPlugin,org.jetbrains.sbt.indices.SbtIntellijIndicesPlugin,sbt.plugins.JUnitXmlReportPlugin,org.jetbrains.sbt.IdeaShellPlugin,org.jetbrains.sbt.StructurePlugin,sbt.plugins.MiniDependencyTreePlugin)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 3.519054 ms[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mloading settings for project project from build.sbt ...[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m        Load.resolveProject(project) took 35.16259ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadTransitive: finalizeProject(Project(id project, base: /home/mhuet/kth/dip/project, plugins: List(<none>))) took 40.109155ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in /home/mhuet/kth/dip/project, returning: (project)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: loadedProjectsRaw took 86.275622ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: cleanEvalClasses took 1.680661ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m  Load.loadUnit(file:/home/mhuet/kth/dip/project/, ...) took 776.467835ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: load took 778.139588ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: resolveProjects took 0.179858ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: finalTransforms took 32.841019ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: config.delegates took 0.469746ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: Def.make(settings)... took 101.651972ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: structureIndex took 35.522742ms[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: mkStreams took 0.00333ms[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mset current project to project (in build file:/home/mhuet/kth/dip/project/)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(sbtPopOnFailure, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(resumeFromFailure, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(notifyUsersAboutShell, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(iflast shell, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(; set ideaPort in Global := 38525 ; idea-shell, None, None)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(set ideaPort in Global := 38525, None, None)[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mDefining Global / ideaPort[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mThe new value will be used by Compile / compile, Test / compile[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mDefining [0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	Global / ideaPort[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mThe new value will be used by [0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	Compile / compile[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	Test / compile[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mReapplying settings...[0m[0J
+[0m[[0m[0minfo[0m] [0m[0mset current project to project (in build file:/home/mhuet/kth/dip/project/)[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m[0J

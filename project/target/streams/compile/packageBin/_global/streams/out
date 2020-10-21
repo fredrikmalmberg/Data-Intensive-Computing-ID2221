@@ -1,0 +1,31 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /home/mhuet/kth/dip/project/target/scala-2.11/project_2.11-0.1.jar ...[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$main$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$main$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$3.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$3.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$main$2$$typecreator3$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$main$2$$typecreator3$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$main$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$main$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$typecreator5$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$typecreator5$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$main$1$$anonfun$apply$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$main$1$$anonfun$apply$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$main$2$$anonfun$apply$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$main$2$$anonfun$apply$2.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$typecreator6$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$typecreator6$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$1.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	sparkstreaming/KafkaSpark$$anonfun$4.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/mhuet/kth/dip/project/target/scala-2.11/classes/sparkstreaming/KafkaSpark$$anonfun$4.class[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m[0J
