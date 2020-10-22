@@ -51,15 +51,16 @@ def get_trending(regioncode):
     auth.set_access_token(access_token, access_token_secret)
     api = API(auth)
     trends = api.trends_place(regioncode)
-    s = str(trends).replace("'", '"').replace("None", "null")
+    s = str(trends).replace("'", '"').replace("None", "null").replace("L\"a", "L'a").replace("l\"a", "l'a")
+    print(s[2500:2550])
     jsn = json.loads(s)
     return [x["name"] for x in jsn[0]["trends"]]
 
 def set_rules(headers, trends, bearer_token):
     # You can adjust the rules if needed
     sample_rules = [
-        {"value": trends[0] + " -is:retweet -is:quote -is:reply sample:10", "tag": trends[0]},
-        {"value": trends[1] + " -is:retweet -is:quote -is:reply sample:10", "tag": trends[1]},
+        {"value": trends[0] + " -is:retweet -is:quote -is:reply sample:50", "tag": trends[0]},
+        {"value": trends[1] + " -is:retweet -is:quote -is:reply sample:50", "tag": trends[1]},
     ]
     payload = {"add": sample_rules}
     response = requests.post(

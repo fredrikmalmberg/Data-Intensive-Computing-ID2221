@@ -1,4 +1,4 @@
 [debug] not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/home/mhuet/kth/dip/project/"), "project")...
-[debug] Done updating ProjectRef(uri("file:/home/mhuet/kth/dip/project/"), "project")
+[debug] Updating ProjectRef(uri("file:/home/mhuet/kth/dip/ID2221/project/"), "project")...
+[debug] Done updating ProjectRef(uri("file:/home/mhuet/kth/dip/ID2221/project/"), "project")
 [warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.

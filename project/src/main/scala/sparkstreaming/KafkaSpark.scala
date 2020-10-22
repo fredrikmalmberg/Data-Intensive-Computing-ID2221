@@ -31,6 +31,7 @@ object KafkaSpark {
         session.execute("CREATE KEYSPACE IF NOT EXISTS tweets_space WITH REPLICATION = " +
                         "{ 'class' : 'SimpleStrategy', 'replication_factor' : 1 };")
         session.execute("CREATE TABLE IF NOT EXISTS tweets_space.tweets (id text PRIMARY KEY, timestamp int);")
+        session.execute("CREATE TABLE IF NOT EXISTS tweets_space.batches (timestamp int PRIMARY KEY, ids text);")
 
         val kafkaConf = Map(
             "metadata.broker.list" -> "localhost:9092",
@@ -50,30 +51,23 @@ object KafkaSpark {
         })
 
         val timeWindow = 20
-        val batches = pairs.map(x => (x._2 - (x._2 % timeWindow), x._1))
-                           .groupByKey()
-                           .map(x => (x._1, x._2.toList.mkString(",")))
-        val filteredBatches = batches.filter(x => {
-            val time = System.currentTimeMillis() / 1000
-            val age = time - x._1
-            age >= 50 && age < 310 && (((age - 50) % 60) < 20)
-        })
+        val windowedPairs = pairs.map(x => (x._2 - (x._2 % timeWindow), x._1))
 
-        filteredBatches.foreachRDD( rdd => {
-            val spark = SparkSession.builder.config(conf).getOrCreate
-            import spark.implicits._
-            if (!rdd.isEmpty()) {
-                val df = rdd.toDF("timestamp", "ids")
-                val ds = df
-                    .selectExpr("ids")
-                    .write
-                    .format("kafka")
-                    .option("kafka.bootstrap.servers", "localhost:9092")
-                    .option("topic", "lookup")
-                    .save()
+        val updateFunction = (key: Int, value: Option[String], state: State[String]) => {
+            val newVal = value.getOrElse("")
+            val oldVal = state.getOption.getOrElse(null)
+            var concat = newVal
+            if (oldVal != null) {
+                concat = oldVal + "," + newVal
             }
-        })
+            state.update(concat)
+            (key, concat)
+        }
+
+        val batches = windowedPairs.mapWithState(StateSpec.function(updateFunction))
+
         pairs.saveToCassandra("tweets_space", "tweets")
+        batches.saveToCassandra("tweets_space", "batches")
 
         ssc.start()
         ssc.awaitTermination()
