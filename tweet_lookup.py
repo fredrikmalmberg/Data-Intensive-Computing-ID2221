@@ -6,9 +6,10 @@ from cassandra.cluster import Cluster
 from time import time
 from threading import Timer
 
+# Made with sample code from https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/master/Tweet-Lookup/get_tweets_with_bearer_token.py
+
 # To set your enviornment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
-
 
 def auth():
     return os.environ.get("BEARER_TOKEN")
@@ -38,7 +39,7 @@ def connect_to_endpoint(url, headers):
 
 def get_batches(session, t):
     batches_list = [session.execute(f"SELECT * FROM batches WHERE timestamp >= {t - 60 * i - 10} AND timestamp < {t - 60 * i + 10} ALLOW FILTERING") for i in range(1, 6)]
-    final_batch = session.execute(f"SELECT * FROM batches WHERE timestamp >= {t - 1790} AND timestamp < {t - 1810} ALLOW FILTERING")
+    final_batch = session.execute(f"SELECT * FROM batches WHERE timestamp >= {t - 1810} AND timestamp < {t - 1790} ALLOW FILTERING")
     return batches_list, final_batch
 
 def send_results(session, headers, producer):
@@ -57,7 +58,7 @@ def send_results(session, headers, producer):
         json_response = connect_to_endpoint(url, headers)
         data = json.dumps(json_response, indent=4, sort_keys=True)
         producer.send("final_lookup", data.encode("utf-8"))
-        print("FINAL LOOKUP"+data)
+        print(data + "\n_______FINAL LOOKUP________\n")
     
     Timer(20, lambda: send_results(session, headers, producer)).start()
 

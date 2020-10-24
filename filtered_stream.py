@@ -6,6 +6,8 @@ from access_tokens import access_token, access_token_secret, consumer_key, consu
 from kafka import KafkaProducer
 from time import time
 
+# Modified version of sample code https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/master/Filtered-Stream/filtered_stream.py
+
 # To set your enviornment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
 
@@ -58,10 +60,7 @@ def get_trending(regioncode):
 
 def set_rules(headers, trends, bearer_token):
     # You can adjust the rules if needed
-    sample_rules = [
-        {"value": trends[0] + " -is:retweet -is:quote -is:reply sample:50", "tag": trends[0]},
-        {"value": trends[1] + " -is:retweet -is:quote -is:reply sample:50", "tag": trends[1]},
-    ]
+    sample_rules = [{"value": x + " -is:retweet -is:quote -is:reply", "tag": x} for x in trends[:3]]
     payload = {"add": sample_rules}
     response = requests.post(
         "https://api.twitter.com/2/tweets/search/stream/rules",
