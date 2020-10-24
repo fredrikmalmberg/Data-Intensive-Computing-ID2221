@@ -29,7 +29,8 @@ object KafkaSpark {
         val session = cluster.connect()
         session.execute("CREATE KEYSPACE IF NOT EXISTS tweets_space WITH REPLICATION = " +
                         "{ 'class' : 'SimpleStrategy', 'replication_factor' : 1 };")
-        session.execute("CREATE TABLE IF NOT EXISTS tweets_space.tweets (id text PRIMARY KEY, input list<frozen<list<int>>>, target list<int>);")
+        session.execute("CREATE TABLE IF NOT EXISTS tweets_space.tweets (id text PRIMARY KEY," +
+            "input list<frozen<list<int>>>, target list<int>, content text, rules list<text>, timestamp int);")
         session.execute("CREATE TABLE IF NOT EXISTS tweets_space.batches (timestamp int PRIMARY KEY, ids text);")
 
         val kafkaConf = Map(
@@ -85,12 +86,21 @@ object KafkaSpark {
         lookupResults.saveToCassandra("tweets_space", "tweets", SomeColumns("id", "input"))
         finalLookupPairs.saveToCassandra("tweets_space", "tweets", SomeColumns("id", "target"))
 
-        val idPairs = ids.map(x => {
+        val tweetInfo = ids.map(x => {
             val jobj = new Gson().fromJson(x._2, classOf[JsonObject])
-            val id = jobj.getAsJsonObject("data").get("id").getAsString
+            val data = jobj.getAsJsonObject("data")
+            val id = data.get("id").getAsString
+            val content = data.get("text").getAsString
             val timestamp = jobj.get("timestamp").getAsInt
-            (id, timestamp)
+            val tags = for (rule <- jobj.getAsJsonArray("matching_rules")) yield {
+                rule.getAsJsonObject.get("tag").getAsString
+            }
+            (id, timestamp, content, tags)
         })
+
+        tweetInfo.saveToCassandra("tweets_space", "tweets", SomeColumns("id", "timestamp", "content", "rules"))
+
+        val idPairs = tweetInfo.map(x => (x._1, x._2))
 
         val timeWindow = 20
         val windowedIdPairs = idPairs.map(x => (x._2 - (x._2 % timeWindow), x._1))
