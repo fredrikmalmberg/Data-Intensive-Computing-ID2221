@@ -6,6 +6,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from cassandra.cluster import Cluster
 from ast import literal_eval
+from ml_model import main_task
 
 real_data = True
 if real_data:

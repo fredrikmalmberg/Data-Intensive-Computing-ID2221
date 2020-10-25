@@ -5,6 +5,7 @@ import pandas as pd
 from threading import Timer
 import itertools
 
+
 def build_model():
     model = tf.keras.Sequential([
         tf.keras.layers.Input(shape=(20,)),
@@ -25,7 +26,7 @@ def build_model():
     return model
 
 def process_data(df):
-    data = df[df["input"].notna() & (df["input"].dropna().map(len) == 5)]
+    data = df[df["input"].notna() & (df["input"].dropna().map(len) == 5)] 
     x, y = data["input"], data["target"]
     x_predict = np.array([z for z in x.map(lambda x: list(itertools.chain.from_iterable(x)))])
     x_train = x_predict[y.notna()]
