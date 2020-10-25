@@ -16,7 +16,7 @@ def auth():
 
 
 def create_url(ids):
-    tweet_fields = "tweet.fields=id,public_metrics,created_at"
+    tweet_fields = "tweet.fields=id,public_metrics"
     url = "https://api.twitter.com/2/tweets?ids={}&{}".format(ids, tweet_fields)
     return url
 
