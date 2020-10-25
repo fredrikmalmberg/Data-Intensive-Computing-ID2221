@@ -54,7 +54,7 @@ app.layout = html.Div(
             ], className = "columns eight"),
         dcc.Interval(
             id='interval-component',
-            interval=1*10000,
+            interval=1*500,
             n_intervals=0
         )
     ], className = 'row'), className = 'Container'
@@ -86,8 +86,11 @@ def update_metrics(n):
     df_five_min = df_five_min[df_five_min['input'].map(lambda x: x != None)]
     # Where the input is valid
     df_five_min = df_five_min[df_five_min['input'].map(lambda x: x[0][0] != None)]
+
     # Picking out data where we have a target
     df_thirty_min = df[df['target'].map(lambda x: x != None)]
+
+
 
     df = df_five_min
     top_tweet_idx = df['input'].map(lambda x: x[0][3]).idxmax()
@@ -103,7 +106,21 @@ def update_metrics(n):
 
     # Show the ones where we have final values
     df = df_thirty_min
+
+    #
+    has_no_values = False
     if df['id'].count() == 0:
+        has_no_values = True
+    else:
+        # making sure we have inputs
+        df = df[df['input'].map(lambda x: x != None)]
+        # Where the input is valid
+        df = df[df['input'].map(lambda x: x[0] != None)]
+        df = df[df['input'].map(lambda x: x[0][0] != None)]
+        if df['id'].count() == 0:
+            has_no_values = True
+
+    if has_no_values:
         top_tweet_idx = 'NA'
         top_tweet_30 = 'NA'
         top_tweet_content_30 = 'NA'
