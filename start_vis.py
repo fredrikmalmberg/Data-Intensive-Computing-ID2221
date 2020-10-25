@@ -67,7 +67,7 @@ app.layout = html.Div(
         ),
         dcc.Interval(
             id='interval-component3',
-            interval=1*5000,
+            interval=1*10000,
             n_intervals=0
         )
     ], className = 'row'), className = 'Container'

@@ -42,7 +42,7 @@ def train(model, x_train, y_train):
     return model.fit(
         x_train, 
         y_train,
-        batch_size=20,
+        batch_size=2,
         epochs=1,
         verbose=0
     )
