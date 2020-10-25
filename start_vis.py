@@ -132,7 +132,7 @@ def update_metrics(n):
     # Where the input is valid
     df_five_min = df_five_min[df_five_min['input'].map(lambda x: x[0][0] != None)]
     # only 10 min old tweets are shown here
-    df_five_min = df_five_min[df_five_min['timestamp'].map(lambda x: (int(time.time()-x)/60) < 10)] # Turned this of for non-live
+    #df_five_min = df_five_min[df_five_min['timestamp'].map(lambda x: (int(time.time()-x)/60) < 10)] # Turned this of for non-live
 
     # Picking out data where we have a target
     df_thirty_min = df[df['target'].map(lambda x: x != None)]
