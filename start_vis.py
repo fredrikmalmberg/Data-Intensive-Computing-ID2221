@@ -5,7 +5,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from cassandra.cluster import Cluster
-from ast import literal_eval
+import numpy as np
+import time
 from ml_model import build_model, process_data, train
 
 # Setting up connection to Cassandra
@@ -38,7 +39,9 @@ app.layout = html.Div(
                 className = "columns five")
             
             ], className = "row"),
+        html.Div(id='live-update-accuracy', className = 'row'),
         html.Div(id='live-update-metrics', className = 'row'),
+
         html.Div([
             html.H3('Number of tweets coming in',style = {'padding-left' : '20%'}, className="row"),
             dcc.Dropdown(
@@ -56,10 +59,47 @@ app.layout = html.Div(
             id='interval-component',
             interval=1*5000,
             n_intervals=0
+        ),
+        dcc.Interval(
+            id='interval-component2',
+            interval=1 * 1000,
+            n_intervals=0
+        ),
+        dcc.Interval(
+            id='interval-component3',
+            interval=1*5000,
+            n_intervals=0
         )
     ], className = 'row'), className = 'Container'
 )
 
+
+# For updating the numbers
+@app.callback(Output('live-update-accuracy', 'children'),
+              [Input('interval-component3', 'n_intervals')])
+def update_accuracy(n):
+    global model
+    rslt = session.execute(query, timeout=None)
+    df = rslt._current_rows
+    overall_acc = str(0)
+    x_predict, x_train, y_train, x_test, y_test = process_data(df)
+    if len(x_test) > 0:
+        if model is None:
+            overall_acc = '0'
+        else:
+            overall_acc = "{:.2f}".format(model.evaluate(x_test, y_test)[1])
+    h_style = {}
+    return [
+        # Creating the headlines
+
+        html.Div([
+            html.Div([
+                html.Div('', style=padding_style)],
+                className="columns two"),
+            html.Div([html.H4('Overall MSE: ' + overall_acc, style=h_style)],
+                className="columns six")
+        ], className="row")
+    ]
 # For updating the numbers
 @app.callback(Output('live-update-metrics', 'children'),
               [Input('interval-component', 'n_intervals')])
@@ -68,49 +108,43 @@ def update_metrics(n):
     global model
     rslt = session.execute(query, timeout=None)
     df = rslt._current_rows
-
-    # the prediction stuff. No clue why x_train is always empty todo
     x_predict, x_train, y_train, x_test, y_test = process_data(df)
     if len(x_train) > 0:
         if model is None:
+            # To be implemented
             model = build_model()
         else:
-            pred = model.predict(x_predict)
+            pass
         history = train(model, x_train, y_train)
-
-
 
     # Some totals to show
     tweet_count = str(df.count()['id'])
     df_clean = df[df['input'].map(lambda x: x != None)]
-    retweet_count = str(df_clean['input'].map(lambda x: x[0][3]).sum())
+    retweet_count = str(df_clean['input'].map(lambda x: x[0][0]).sum())
 
     # Split this into one where we have tweets 5 min old
 
     # Picking out data where we only have input
     df_five_min = df[df['target'].map(lambda x: x == None)]
     # Where we have recieved at least one lookup
-    df_five_min = df_five_min[df_five_min['input'].map(lambda x: x != None)]
+    df_five_min = df_five_min[df_five_min["input"].notna() & (df_five_min["input"].dropna().map(len) == 5)]
+
     # Where the input is valid
     df_five_min = df_five_min[df_five_min['input'].map(lambda x: x[0][0] != None)]
+    # only 10 min old tweets are shown here
+    df_five_min = df_five_min[df_five_min['timestamp'].map(lambda x: (int(time.time()-x)/60) < 10)] # Turned this of for non-live
 
     # Picking out data where we have a target
     df_thirty_min = df[df['target'].map(lambda x: x != None)]
-
-
-
+    df_thirty_min = df_thirty_min[df_thirty_min["input"].notna() & (df_thirty_min["input"].dropna().map(len) == 5)]
 
     df = df_five_min
-    top_tweet_idx = df['input'].map(lambda x: x[0][3]).idxmax()
+    top_tweet_idx = df['input'].map(lambda x: x[0][0]).idxmax()
     top_tweet = str(df['id'][top_tweet_idx])
     top_tweet_current_retweets = str(df['input'][top_tweet_idx][0][0])
-    top_tweet_prediction_retweets = '0'  # todo
+    prediction = str(int(model.predict(np.array(df_five_min['input'][top_tweet_idx]).reshape(1,20)[0:])[0,0]))
+    top_tweet_prediction_retweets = prediction
     top_tweet_content = str(df['content'][top_tweet_idx])
-    top_predicted_tweet_idx = df['input'].map(lambda x: x[0][3]).idxmax()  # todo
-    top_predicted_tweet = str(df['id'][top_predicted_tweet_idx])
-    top_predicted_tweet_current_retweets = str(df['input'][top_predicted_tweet_idx][0][0])
-    top_predicted_tweet_prediction = '0'  # todo
-    top_predicted_tweet_content = str(df['content'][top_predicted_tweet_idx])
 
     # Show the ones where we have final values
     df = df_thirty_min
@@ -136,16 +170,16 @@ def update_metrics(n):
         top_tweet_retweets_30 = 'NA'
         top_tweet_predicted_retweets_30 = 'NA'
     else:
-        top_tweet_idx = df['target'].map(lambda x: x[0]).idxmax() # Todo we are now taking the actual top
+        top_tweet_idx = df['target'].map(lambda x: x[0]).idxmax()
         top_tweet_30 = str(df['id'][top_tweet_idx])
         top_tweet_content_30 = str(df['content'][top_tweet_idx])
         top_tweet_retweets_30 = str(df['target'][top_tweet_idx][0])
-        top_tweet_predicted_retweets_30 = '0'  # Todo this should be based on prediction
+        prediction = str(int(model.predict(np.array(df['input'][top_tweet_idx]).reshape(1, 20)[0:])[0, 0]))
+        top_tweet_predicted_retweets_30 = prediction
 
-    # To be implemented
-    overall_acc = str(0) # todo
+
     
-    h_style = {} #{'padding': '10px', 'fontSize': '16px', 'font-family': 'Arial, Helvetica, sans-serif'}
+    h_style = {}
     style ={'fontSize': '16px'}
     id_style = {'fontSize': '16px', 'color': 'darkblue', 'text-decoration': 'underline'}
 
@@ -159,13 +193,13 @@ def update_metrics(n):
                 className = "columns two"),
             html.Div([
                 html.H5('Number of tweets monitored: ' + tweet_count, style=h_style)],
-                className = "columns two"),
+                className = "columns three"),
             html.Div([
                 html.H5('Total reach through retweets: ' + retweet_count, style=h_style)],
-                className = "columns two"),
-            html.Div([
-                html.H5('Overall Accuracy: ' + overall_acc, style=h_style)],
-                className = "columns two")
+                className = "columns three")#,
+            #html.Div([
+            #    html.H5('Overall Accuracy: ' + overall_acc, style=h_style)],
+            #    className = "columns two")
             ], className = "row"),
         
         # Creating the table
@@ -177,28 +211,22 @@ def update_metrics(n):
                 html.H5('Current top tweet', style=h_style, className="row"),
                 html.P(['ID: ',html.P(top_tweet, style = id_style ), html.Span(top_tweet_content, className = 'extra')], style=style),
                 html.P('Current number of retweets: ' + top_tweet_current_retweets, style=style),
-                html.P('30 min prediction: ' + top_tweet_prediction_retweets, style=style),
-                html.P('------------------', className = "row"),
-                html.H5('Predicted top tweet', style=h_style, className="row"),
-                html.P(['ID: ',html.P(top_predicted_tweet, style = id_style ), html.Span(top_predicted_tweet_content, className='extra')],
-                       style=style),
-                html.P('Current number of retweets: ' + top_predicted_tweet_current_retweets, style=style),
-                html.P('30 min prediction: ' + top_predicted_tweet_prediction, style=style)],
-                className = "columns four"),
+                html.P('30 min prediction: ' + top_tweet_prediction_retweets, style=style)],
+                className = "columns three"),
             html.Div([
                 html.H3('Outcome after 30 min', style=h_style, className="row"),
-                html.H5('Predicted top tweet', style=h_style, className="row"),
+                html.H5('Top tweet', style=h_style, className="row"),
                 html.P(['ID: ',html.P(top_tweet_30, style = id_style ), html.Span(top_tweet_content_30, className = 'extra')], style=style),
                 html.P('Current number of retweets: ' + top_tweet_retweets_30, style=style), # todo
                 html.P('Predicted number of retweets: ' + top_tweet_predicted_retweets_30, style=style)],
-                className = "columns four")
+                className = "columns three")
             ],
             className = "row")
         ]
 
 # For updating the graph
 @app.callback(Output('live-update-graph', 'figure'),
-              [Input('interval-component', 'n_intervals')],
+              [Input('interval-component2', 'n_intervals')],
               [Input('dropdown', 'value')])
 def update_graph_live(n, value):
 

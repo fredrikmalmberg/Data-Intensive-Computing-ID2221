@@ -11,10 +11,10 @@ def build_model():
         tf.keras.layers.Input(shape=(20,)),
         tf.keras.layers.Dense(32, activation='relu', kernel_regularizer=tf.keras.regularizers.l1_l2()),
         tf.keras.layers.Dropout(0.3),
-        tf.keras.layers.Dense(16, activation='relu', kernel_regularizer=tf.keras.regularizers.l2()),
-        tf.keras.layers.Dropout(0.3),
-        tf.keras.layers.Dense(8, activation='relu'),
-        tf.keras.layers.Dropout(0.3),
+        #tf.keras.layers.Dense(16, activation='relu', kernel_regularizer=tf.keras.regularizers.l2()),
+        #tf.keras.layers.Dropout(0.3),
+        #tf.keras.layers.Dense(8, activation='relu'),
+        #tf.keras.layers.Dropout(0.3),
         tf.keras.layers.Dense(4, activation='relu')
     ])
 
@@ -26,7 +26,7 @@ def build_model():
     return model
 
 def process_data(df):
-    data = df[df["input"].notna() & (df["input"].dropna().map(len) == 5)] 
+    data = df[df["input"].notna() & (df["input"].dropna().map(len) == 5)]
     x, y = data["input"], data["target"]
     x_predict = np.array([z for z in x.map(lambda x: list(itertools.chain.from_iterable(x)))])
     x_train = x_predict[y.notna()]
@@ -42,8 +42,8 @@ def train(model, x_train, y_train):
     return model.fit(
         x_train, 
         y_train,
-        batch_size=20,
-        epochs=20,
+        batch_size=1,
+        epochs=1,
         verbose=0
     )
 
