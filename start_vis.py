@@ -6,6 +6,8 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from cassandra.cluster import Cluster
 from ast import literal_eval
+from ml_model import process_data, build_model, train
+
 
 real_data = True
 if real_data:
@@ -54,7 +56,7 @@ app.layout = html.Div(
             ], className = "columns eight"),
         dcc.Interval(
             id='interval-component',
-            interval=1*500,
+            interval=1*5000,
             n_intervals=0
         )
     ], className = 'row'), className = 'Container'
@@ -73,6 +75,22 @@ def update_metrics(n):
         df.columns = ['id','content', 'input','rules','target', 'timestamp']
         df['input'] = df['input'].fillna("[[None,None,None,None]]")
         # Needs literal her
+
+    # the prediction stuff. No clue why x_train is always empty todo
+    x_predict, x_train, y_train, x_test, y_test = process_data(df)
+    print(x_train)
+    if len(x_train) > 0:
+        print("will train")
+        if model is None:
+            model = build_model()
+        else:
+            pred = model.predict(x_predict)
+        history = train(model, x_train, y_train)
+        print(pred)
+        print(f"evaluating model: {model.evaluate(x_test, y_test)}\n")
+
+
+
     # Some totals to show
     tweet_count = str(df.count()['id'])
     df_clean = df[df['input'].map(lambda x: x != None)]
@@ -89,6 +107,7 @@ def update_metrics(n):
 
     # Picking out data where we have a target
     df_thirty_min = df[df['target'].map(lambda x: x != None)]
+
 
 
 
@@ -111,6 +130,7 @@ def update_metrics(n):
     has_no_values = False
     if df['id'].count() == 0:
         has_no_values = True
+        print("No values with targets")
     else:
         # making sure we have inputs
         df = df[df['input'].map(lambda x: x != None)]
@@ -118,6 +138,7 @@ def update_metrics(n):
         df = df[df['input'].map(lambda x: x[0] != None)]
         df = df[df['input'].map(lambda x: x[0][0] != None)]
         if df['id'].count() == 0:
+            print("No values with targets and valid input")
             has_no_values = True
 
     if has_no_values:
@@ -127,11 +148,12 @@ def update_metrics(n):
         top_tweet_retweets_30 = 'NA'
         top_tweet_predicted_retweets_30 = 'NA'
     else:
-        top_tweet_idx = df['input'].map(lambda x: x[0][3]).idxmax()
+        print("We have some target values")
+        top_tweet_idx = df['target'].map(lambda x: x[0]).idxmax() # Todo we are now taking the actual top
         top_tweet_30 = str(df['id'][top_tweet_idx])
         top_tweet_content_30 = str(df['content'][top_tweet_idx])
-        top_tweet_retweets_30 = str(df['input'][top_tweet_idx][0][0])
-        top_tweet_predicted_retweets_30 = '0'
+        top_tweet_retweets_30 = str(df['target'][top_tweet_idx][0])
+        top_tweet_predicted_retweets_30 = '0'  # Todo this should be based on prediction
 
     # To be implemented
     overall_acc = str(0) # todo
@@ -180,7 +202,7 @@ def update_metrics(n):
                 html.H3('Outcome after 30 min', style=h_style, className="row"),
                 html.H5('Predicted top tweet', style=h_style, className="row"),
                 html.P(['ID: ',html.P(top_tweet_30, style = id_style ), html.Span(top_tweet_content_30, className = 'extra')], style=style),
-                html.P('Current number of retweets: ' + top_tweet_retweets_30, style=style),
+                html.P('Current number of retweets: ' + top_tweet_retweets_30, style=style), # todo
                 html.P('Predicted number of retweets: ' + top_tweet_predicted_retweets_30, style=style)],
                 className = "columns four")
             ],
@@ -206,11 +228,7 @@ def update_graph_live(n, value):
     df['timestamp'] = df['timestamp'].map(lambda x: pd.Timestamp(x, unit='s'))
 
     # Grouping and counting by hour
-    #df['ts'] = df['ts'].map(lambda x: x[13:-13]) todo leaving these as they depend on format from cassandra
-    #df['ts'] = pd.to_datetime(df['ts'], infer_datetime_format=True)  # " format = '%m %Y')
-
-    df['timestamp'] = df['timestamp'].map(lambda x: str(x.hour) + ":" + str(x.minute))
-
+    df['timestamp'] = df['timestamp'].map(lambda x: str(x.hour) + ":" + (str(x.minute) if x.minute > 9 else '0' + str(x.minute)   ))
     if value == 'tweets':
         df_grouped = df.groupby(df['timestamp'])['id'].count()
     else:
