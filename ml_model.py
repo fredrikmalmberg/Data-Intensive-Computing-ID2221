@@ -43,7 +43,8 @@ def train(model, x_train, y_train):
         x_train, 
         y_train,
         batch_size=20,
-        epochs=50
+        epochs=20,
+        verbose=0
     )
 
 def fetch_df(session):
@@ -60,7 +61,6 @@ def main_task(session, model):
             pred = model.predict(x_predict)
         history = train(model, x_train, y_train)
         print(f"evaluating model: {model.evaluate(x_test, y_test)}\n")
-    
     Timer(20, lambda: main_task(session, model)).start()
     
 

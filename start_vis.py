@@ -6,18 +6,17 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from cassandra.cluster import Cluster
 from ast import literal_eval
-from ml_model import process_data, build_model, train
+from ml_model import build_model, process_data, train
 
-real_data = True
-if real_data:
-    # Setting up connection to Cassandra
-    cluster = Cluster(["127.0.0.1"])
-    session = cluster.connect('tweets_space')
-    def to_df(col_names, rows):
-        return pd.DataFrame(rows, columns=col_names)
-    session.row_factory = to_df
-    session.default_fetch_size = None
-    query = "SELECT * FROM tweets"
+# Setting up connection to Cassandra
+cluster = Cluster(["127.0.0.1"])
+session = cluster.connect('tweets_space')
+def to_df(col_names, rows):
+    return pd.DataFrame(rows, columns=col_names)
+session.row_factory = to_df
+session.default_fetch_size = None
+query = "SELECT * FROM tweets"
+model = None
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -66,27 +65,18 @@ app.layout = html.Div(
               [Input('interval-component', 'n_intervals')])
 
 def update_metrics(n):
-    if real_data:
-        rslt = session.execute(query, timeout=None)
-        df = rslt._current_rows
-    else:
-        df = pd.read_csv('tweets_2.csv', header = None)  
-        df.columns = ['id','content', 'input','rules','target', 'timestamp']
-        df['input'] = df['input'].fillna("[[None,None,None,None]]")
-        # Needs literal her
+    global model
+    rslt = session.execute(query, timeout=None)
+    df = rslt._current_rows
 
     # the prediction stuff. No clue why x_train is always empty todo
     x_predict, x_train, y_train, x_test, y_test = process_data(df)
-    print(x_train)
     if len(x_train) > 0:
-        print("will train")
         if model is None:
             model = build_model()
         else:
             pred = model.predict(x_predict)
         history = train(model, x_train, y_train)
-        print(pred)
-        print(f"evaluating model: {model.evaluate(x_test, y_test)}\n")
 
 
 
@@ -129,7 +119,6 @@ def update_metrics(n):
     has_no_values = False
     if df['id'].count() == 0:
         has_no_values = True
-        print("No values with targets")
     else:
         # making sure we have inputs
         df = df[df['input'].map(lambda x: x != None)]
@@ -147,7 +136,6 @@ def update_metrics(n):
         top_tweet_retweets_30 = 'NA'
         top_tweet_predicted_retweets_30 = 'NA'
     else:
-        print("We have some target values")
         top_tweet_idx = df['target'].map(lambda x: x[0]).idxmax() # Todo we are now taking the actual top
         top_tweet_30 = str(df['id'][top_tweet_idx])
         top_tweet_content_30 = str(df['content'][top_tweet_idx])
@@ -180,7 +168,7 @@ def update_metrics(n):
                 className = "columns two")
             ], className = "row"),
         
-        # Creating the tables
+        # Creating the table
         html.Div([
             html.Div(' ',
                 className = "columns two ", style = padding_style),
@@ -214,14 +202,8 @@ def update_metrics(n):
               [Input('dropdown', 'value')])
 def update_graph_live(n, value):
 
-    if real_data:
-        rslt = session.execute(query, timeout=None)
-        df = rslt._current_rows
-    else:
-        df = pd.read_csv('tweets_2.csv', header=None)
-        df.columns = ['id', 'content', 'input', 'rules', 'target', 'timestamp']
-        df = df.fillna("[[0,0,0,0]]")
-        df['input'] = df['input'].apply(literal_eval)
+    rslt = session.execute(query, timeout=None)
+    df = rslt._current_rows
     # Where we have recieved at least one lookup
 
     df['timestamp'] = df['timestamp'].map(lambda x: pd.Timestamp(x, unit='s'))
